@@ -35,7 +35,7 @@ console.log(items[1]);
 // items[2].style.fontWeight = 'bold';
 // items[3].style.fontWeight = 'bold';
 
- items[2].style.backgroundColor = 'green';
+//  items[2].style.backgroundColor = 'green';
 
 for(let i=0;i<items.length;i++){
     items[i].style.fontWeight = 'bold';
@@ -62,6 +62,51 @@ const li = document.getElementsByTagName('li');
 console.log(li);
 console.log(li[1]);
 
-  li[3].style.background = 'green';
+  // li[3].style.background = 'green';
+
+
+ // 4. QuerySelector 
+ 
+    const header = document.querySelector('#main-header');
+    header.style.borderBottom = 'solid 5px red';
+
+    const input = document.querySelector('input');
+    input.value = 'Hello chintu';
+
+    const submit = document.querySelector('input[type="submit"]');
   
+     submit.value = "SEND";
+
+     const item = document.querySelector('.list-group-item');
+     item.style.color = 'red';
+
+     const lastItem = document.querySelector('.list-group-item:last-Child');
+     lastItem.style.color = 'green';
+
+     const thirdItem = document.querySelector('.list-group-item:nth-Child(3)');
+     thirdItem.style.visibility  = 'hidden';
+
+     const secondItem = document.querySelector('.list-group-item:nth-Child(2)');
+     secondItem.style.color = 'blue';
+
+
+     //5.QuerySelectorALL 
+
+     const list = document.querySelectorAll('.list-group');
+     list[0].style.color = 'green';
+       
+     const titles = document.querySelectorAll('.title');
+     console.log(titles);
+
+     titles[0].textContent = 'Dom (Document object model)';
+
+     const odd = document.querySelectorAll('li:nth-child(odd)');
+     const even = document.querySelectorAll('li:nth-child(even)');
+     
+     for(let i=0;i<odd.length;i++){
+      odd[i].style.backgroundColor = 'green ';
+      even[i].style.backgroundColor = '#ccc';
+     }
+
+
 
