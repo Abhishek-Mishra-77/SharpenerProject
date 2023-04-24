@@ -56,5 +56,12 @@ for(let i=0;i<items.length;i++){
 // items[2].style.fontWeight = 'MediumSeaGreen';
 // items[3].style.fontWeight = 'LightGray';
 
+// 3 GetElementbyTag selector
 
+const li = document.getElementsByTagName('li');
+console.log(li);
+console.log(li[1]);
+
+  li[3].style.background = 'green';
+  
 
