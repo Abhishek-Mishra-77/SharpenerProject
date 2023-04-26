@@ -12,14 +12,30 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Items Listener</title>
     <style>
-        .float-right{
+        body {
+            padding: 0;
+        }
+
+        .float-right {
             float: right;
         }
-        .form-control1{
+
+        .form-control1 {
             width: 40%;
             float: right;
         }
-        
+
+        #main-header {
+            height: 177px;
+            background-color: green;
+            color: white;
+            font-size: 40px;
+        }
+
+        #filter {
+            width: 77%;
+            margin-top: 10%;
+        }
     </style>
 </head>
 
@@ -41,6 +57,7 @@
             <h2 class="title">Add Items</h2>
             <form id="addForm" class="form-inline mb-3">
                 <input type="text" class="form-control mr-2" id="item">
+                <input type="text" class="form-control " id="description">
                 <input type="submit" class="btn btn-dark" value="Submit">
             </form>
             <h2 class="title">Items</h2>
