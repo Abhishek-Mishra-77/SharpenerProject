@@ -44,3 +44,20 @@ function onSubmit(event) {
         emailInput.valu = '';
     }
 }
+
+
+// Object in localStorage
+
+let myobj = {
+    name : "Chintu",
+    age : 21
+};
+
+let myobj_serialized = JSON.stringify(myobj);
+
+localStorage.setItem("myObj" , myobj_serialized);
+
+
+let myobj_deserialized = JSON.parse(localStorage.getItem("myObj"));
+
+console.log(myobj_deserialized);
