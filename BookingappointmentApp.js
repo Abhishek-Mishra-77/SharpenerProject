@@ -23,10 +23,16 @@ myForm.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
     event.preventDefault();
-
+    
+    // Delete button
     const deleteBtn = document.createElement('input');
     deleteBtn.type = 'button';
-    deleteBtn.value = 'delete';
+    deleteBtn.value = 'Delete';
+
+    // Edit button
+    const editBtn = document.createElement('input');
+    editBtn.type = 'button';
+    editBtn.value = 'Edit'
 
 
     const name = nameInput.value;
@@ -56,17 +62,31 @@ function onSubmit(event) {
 
         li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value} - ${numberInput.value} - `));
         li.appendChild(deleteBtn);
+        li.appendChild(editBtn);
         userList.append(li);
 
         // setTimeout(() => li.remove(), 10000)
-
+         //  delete button
         deleteBtn.onclick = () => {
             localStorage.removeItem(StorageData.email);
             userList.removeChild(li);
         }
+
+        // Edit button 
+        editBtn.onclick = () => {
+            nameInput.value = StorageData.name;
+            emailInput.value = StorageData.email;
+            numberInput.value = StorageData.number;
+            localStorage.removeItem(StorageData.email);
+            userList.removeChild(li);
+
+            
+        }
+
+       
+
     }
 
-    // Create delete button
 
 }
 
