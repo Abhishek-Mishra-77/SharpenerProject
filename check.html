@@ -2,32 +2,33 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 </head>
 
 <body>
-    <h1></h1>
+  <h1>Closure</h1>
+
+  <button id="orange">Orange</button>
+  <button id="green">Green</button>
+
+  <script>
+    function abc(color) {
+      return function () {
+        document.body.style.background = `${color}`;
+      }
+    }
+
+    const first = document.getElementById('orange');
+    const second = document.getElementById('green');
+    first.onclick = abc('orange');
+    second.onclick = abc('green');
+
+
+  </script>
+
 </body>
-
-<script>
-  console.log('a');
-
-console.log('b');
-
-
-
-setTimeout(()=> console.log('c'), 1000);
-
-
-
-setTimeout(()=> console.log('d'), 0);
-
-
-
-console.log('e');
-</script>
 
 </html>
