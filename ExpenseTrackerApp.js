@@ -81,7 +81,9 @@ function ExpenseTracker(event) {
 
 window.addEventListener('load', (event) => {
 
-    for (const key in localStorage) {
+      const data = Object.keys(localStorage);
+
+      data.forEach( (key) => {
         const li = document.createElement('li');
         const details = JSON.parse(localStorage.getItem(key));
 
@@ -111,9 +113,6 @@ window.addEventListener('load', (event) => {
 
         userList.appendChild(li);
 
-    }
+      });
 
 });
-
-
-

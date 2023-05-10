@@ -14,20 +14,28 @@
   <button id="orange">Orange</button>
   <button id="green">Green</button>
 
-  <script>
-    function abc(color) {
-      return function () {
-        document.body.style.background = `${color}`;
-      }
-    }
-
-    const first = document.getElementById('orange');
-    const second = document.getElementById('green');
-    first.onclick = abc('orange');
-    second.onclick = abc('green');
 
 
-  </script>
+  <script src="demo.js"></script>
+
+  <!-- <script>
+    // function abc(color) {
+    //   return function () {
+    //     document.body.style.background = `${color}`;
+    //   }
+    // }
+
+    // const first = document.getElementById('orange');
+    // const second = document.getElementById('green');
+    // first.onclick = abc('orange');
+    // second.onclick = abc('green');
+
+
+
+    
+
+
+  </script> -->
 
 </body>
 
