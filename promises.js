@@ -25,21 +25,36 @@ function createPost(post) {
     })
 }
 
-
-Promise.all([createPost({ title: 'Post  Four' }), updateLastUserActivityTime()])
-    .then(([post, lastActivity]) => {
-        console.log("Before creating post", post, lastActivity);
-        // posts.push(post);
-        console.log("After creating Post  >>>>>>", post);
-    }).then(() => {
-        console.log('Posts ', posts);
-
-        updateLastUserActivityTime().then((userLastActivity) => {
-            console.log('User Last activity Time ', userLastActivity.getTime())
-        }).catch((error) => {
-            console.log(error)
+function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (posts.length > 0) {
+                const deleteEle = posts.pop();
+                resolve(deleteEle);
+            }
+            else {
+                reject('Error');
+            }
         })
     })
+}
 
-    // { title: 'Post Four' }
+
+
+Promise.all(([createPost({ title: 'Post Four' }), updateLastUserActivityTime()]))
+    .then(([post, updateuserActivity]) => {
+        console.log('before creating post ', post, updateuserActivity);
+
+        console.log('After creating post', posts)
+
+        updateLastUserActivityTime().then((updateuserActivity) => {
+            console.log('users last Activity', updateuserActivity.getTime());
+
+          deletePost().then(() => {
+            console.log('after deleting last post ' , posts);
+          })
+
+        })
+
+    });
 
