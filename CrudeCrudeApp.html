@@ -219,11 +219,11 @@
             axios.get('https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1')
                 .then((response) => {
                     for (let i = 0; i < response.data.length; i++) {
-                        console.log(response.data[i])
+
                         const li = document.createElement('li');
                         const details = response.data[i];
                         // Storing all item int the browser
-                         
+
                         li.appendChild(document.createTextNode(`${details.name} - ${details.email} - ${details.number} `));
 
                         // create the delete button
@@ -239,8 +239,30 @@
 
                         deleteBtn.onclick = () => {
                             axios.delete(`https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1/${details._id}`)
+                                .then((response) => {
+                                    console.log(response)
+                                })
+                                .catch((error) => {
+                                    console.log('Something went wrong!')
+                                })
+
+                        }
+
+
+                        editBtn.onclick = () => {
+                            nameInput.value = details.name;
+                            emailInput.value = details.email;
+                            numberInput.value = details.number;
+                            axios.delete(`https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1/${details._id}`)
+                                .then((response) => {
+                                    console.log(response)
+                                })
+                                .catch((error) => {
+                                    console.log('Something went wrong!')
+                                })
                             userList.removeChild(li);
                         }
+
 
                         userList.appendChild(li);
                     }
