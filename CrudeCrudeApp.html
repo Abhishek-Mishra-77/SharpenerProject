@@ -211,7 +211,39 @@
             }
         }
 
-        
+
+        // When Window refresh I Get All the data from axios.get()
+
+        window.addEventListener('load', (event) => {
+
+            axios.get('https://crudcrud.com/api/8c4f8306f9e24a2abdb9270e26af9757/CrudeCrude1')
+                .then((response) => {
+                    for (let i = 0; i < response.data.length; i++) {
+
+                        const li = document.createElement('li');
+                        const details = response.data[i];
+                    // Storing all item int the browser
+
+                        li.appendChild(document.createTextNode(`${details.name} - ${details.email} - ${details.number} `));
+                      
+                        // create the delete button
+                        const deleteBtn = document.createElement('input');
+                        deleteBtn.type = 'button';
+                        deleteBtn.value = 'Delete Expense';
+                        li.appendChild(deleteBtn);
+
+                        const editBtn = document.createElement('input');
+                        editBtn.type = 'button';
+                        editBtn.value = 'Edit Expense';
+                        li.appendChild(editBtn);
+
+                        
+
+                        userList.appendChild(li);
+                    }
+                })
+
+        })
     </script>
 
 </body>
