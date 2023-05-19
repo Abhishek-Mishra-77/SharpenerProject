@@ -84,14 +84,10 @@
         const Price = document.getElementById('Price');
         const Quantity = document.getElementById('Quantity');
         const items = document.getElementById('items');
-        let count1 = 0;
-        count2 = 0;
-        count3 = 0;
-        details.addEventListener(('submit'), myFromAlldetails);
+        details.addEventListener(('submit'), myFormAlldetails);
 
         // Main creation 
-
-        function myFromAlldetails(event) {
+        function myFormAlldetails(event) {
             event.preventDefault();
 
             const obj = {
@@ -101,33 +97,38 @@
                 ItemQuantity: Quantity.value,
             }
 
-            axios.post('https://crudcrud.com/api/92a83337f33b4c80bcc3b568356824ef/GroceriesItems', obj)
+            axios.post('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems', obj)
                 .then((response) => {
-                    allItems(response.data)
+                    addItems(response.data)
                 })
 
         }
 
-        function allItems(obj) {
+        // To Add Groceries Item
+        function addItems(obj) {
             const li = document.createElement('li');
-            li.appendChild(document.createTextNode(`${obj.ItemName} - ${obj.Itemdescription} - ${obj.ItemPrice} - ${obj.ItemQuantity}`))
+            li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
+            //li.appendChild(document.createTextNode(`<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`));
+
             li.appendChild(BuyBtnOne(obj));
             li.appendChild(BuyBtnTwo(obj));
             li.appendChild(BuyBtnThree(obj));
+            li.appendChild(deleteBtn(obj));
             items.appendChild(li);
         }
 
 
+        // function updateQuantity(obj) {
+        //     const li = obj._id;
 
-        function updateQuantity(obj) {
-            const li = obj._id;
-            if (li) {
-                li.textContent = `${obj.ItemName} - ${obj.Itemdescription} - ${obj.ItemPrice} - ${obj.ItemQuantity}`;
-            }
-            allItems(obj)
-        }
+        //     // if (li) {
+        //     //     li.textContent = `${obj.ItemName} - ${obj.Itemdescription} - ${obj.ItemPrice} - ${obj.ItemQuantity}`;
+        //     // }
+        //     addItems(obj)
+        // }
 
 
+        // Buy 1 Button
         function BuyBtnOne(obj) {
 
             const btn1 = document.createElement('input')
@@ -139,13 +140,23 @@
             btn1.value = 'BUY 1'
 
             btn1.onclick = () => {
+                const id1 = obj._id;
+                const listItem = btn1.parentNode;
+
                 if (obj.ItemQuantity > 0) {
-                    obj.ItemQuantity--;
-                    updateQuantity(obj)
+                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
+                        .then((response) => {
+                            obj.ItemQuantity = obj.ItemQuantity - 1;
+                            items.removeChild(listItem);
+                            addItems(obj)
+                        })
                 }
             };
             return btn1;
         }
+
+        // Buy 2 Button 
+
         function BuyBtnTwo(obj) {
 
             const btn2 = document.createElement('input')
@@ -157,13 +168,21 @@
             btn2.value = 'BUY 2'
 
             btn2.onclick = () => {
+                const id2 = obj._id;
+                const listItem = btn2.parentNode;
                 if (obj.ItemQuantity > 0) {
-                    obj.ItemQuantity = obj.ItemQuantity - 2;
-                    updateQuantity(obj)
+                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
+                        .then((response) => {
+                            obj.ItemQuantity = obj.ItemQuantity - 2;
+                            items.removeChild(listItem);
+                            addItems(obj)
+                        })
                 }
             }
             return btn2;
         }
+
+        // Buy 1 Button
 
         function BuyBtnThree(obj) {
 
@@ -176,10 +195,17 @@
             btn3.value = 'BUY 3'
 
             btn3.onclick = () => {
-
+                const id3 = obj._id;
+                const listItem = btn3.parentNode;
                 if (obj.ItemQuantity > 0) {
-                    obj.ItemQuantity = obj.ItemQuantity - 3;
-                    updateQuantity(obj)
+                    console.log(obj)
+                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
+                        .then((response) => {
+                            obj.ItemQuantity = obj.ItemQuantity - 3;
+                            items.removeChild(listItem);
+                            addItems(obj)
+                        })
+
                 }
 
             }
@@ -187,15 +213,36 @@
             return btn3;
         }
 
+        function deleteBtn(obj) {
+            const deleteBtn = document.createElement('input')
+            deleteBtn.type = 'button';
+            // deleteBtn.value = '❌'
+            deleteBtn.value = 'Delete Item'
+            deleteBtn.style.background = 'red'
+            deleteBtn.style.color = 'black'
+            deleteBtn.style.marginLeft = '15px'
+            const id = obj._id;
+            deleteBtn.onclick = () => {
+                const ListItem = deleteBtn.parentNode;
+                axios.delete(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id}`)
+                    .then((response) => {
+                        items.removeChild(ListItem);
+                    })
+
+            }
+            return deleteBtn;
+        }
+
+        // When we refresh the window
 
         window.addEventListener(('load'), BrowserRefresh);
 
         function BrowserRefresh() {
-            axios.get('https://crudcrud.com/api/92a83337f33b4c80bcc3b568356824ef/GroceriesItems')
+            axios.get('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems')
                 .then((response) => {
                     for (var i = 0; i < response.data.length; i++) {
                         const data = response.data[i];
-                        allItems(data)
+                        addItems(data)
                     }
                 })
         }
