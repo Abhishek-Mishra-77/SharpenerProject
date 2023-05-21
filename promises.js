@@ -83,7 +83,7 @@ async function asyncFunction() {
         const result3 = await resolveAfterDelay(6000);
         console.log('this 3',result3);
 
-        const result4 = await resolveAfterDelay(1000);
+        const result4 = await resolveAfterDelay(2000);
    
         console.log('this 4',result4);
     } catch (error) {

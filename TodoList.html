@@ -145,7 +145,8 @@
                 TodoD: Tododescription.value,
                 done: false,
             }
-            axios.post('https://crudcrud.com/api/235351e00b2642aca107d4928982e0b1/TodoList', obj)
+
+            axios.post('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/TodoList', obj)
                 .then((res) => {
                     CreateAllItem(res.data)
                 })
@@ -193,7 +194,7 @@
 
 
 
-                axios.delete(`https://crudcrud.com/api/235351e00b2642aca107d4928982e0b1/TodoList/${itemId}`)
+                axios.delete(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/TodoList/${itemId}`)
                     .then((response) => {
                         //console.log(response)
                     })
@@ -216,11 +217,11 @@
 
             doneBtn.onclick = () => {
                 const itemId = obj._id;
-                const listItem = doneBtn.parentNode;
+                 const listItem = doneBtn.parentNode;
                 users.removeChild(listItem)
                 users1.appendChild(listItem);
 
-                axios.put(`https://crudcrud.com/api/235351e00b2642aca107d4928982e0b1/TodoList/${itemId}`, { TodoN: obj.TodoN, TodoD: obj.TodoD, done: true })
+                axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/TodoList/${itemId}`, { TodoN: obj.TodoN, TodoD: obj.TodoD, done: true })
                     .then(() => {
 
                         CreateAllItem({ ...obj, done: true });
@@ -246,7 +247,7 @@
         window.addEventListener(('load'), BrowserRefreshFunction)
 
         function BrowserRefreshFunction() {
-            axios.get('https://crudcrud.com/api/235351e00b2642aca107d4928982e0b1/TodoList')
+            axios.get('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/TodoList')
                 .then((response) => {
                     for (var i = 0; i < response.data.length; i++) {
                         const data = response.data[i];

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking appointment App</title>
+    <title>Crude Crude App</title>
     <style>
         * {
             padding: 0;
@@ -166,13 +166,12 @@
                 number
             };
 
-            axios.post("https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1", StorageData)
+            axios.post("https://crudcrud.com/api/9205e10661b04a39a0f07cab79dbcd6/TodoList", StorageData)
                 .then((response) => {
-                    console.log(response)
+                    //console.log(response)
                 })
-                .catch(() => {
-                    console.log("Something wrong")
-                })
+
+
 
             // localStorage.setItem(StorageData.email, JSON.stringify(StorageData));
 
@@ -216,12 +215,15 @@
 
         window.addEventListener('load', (event) => {
 
-            axios.get('https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1')
+            axios.get('https://crudcrud.com/api/9205e10661b04a39a0f07cab79dbcd6b/TodoList')
                 .then((response) => {
                     for (let i = 0; i < response.data.length; i++) {
 
+
                         const li = document.createElement('li');
                         const details = response.data[i];
+
+
                         // Storing all item int the browser
 
                         li.appendChild(document.createTextNode(`${details.name} - ${details.email} - ${details.number} `));
@@ -238,7 +240,7 @@
                         li.appendChild(editBtn);
 
                         deleteBtn.onclick = () => {
-                            axios.delete(`https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1/${details._id}`)
+                            axios.delete(`https://crudcrud.com/api/9205e10661b04a39a0f07cab79dbcd6b/TodoList/${details._id}`)
                                 .then((response) => {
                                     console.log(response)
                                 })
@@ -253,7 +255,7 @@
                             nameInput.value = details.name;
                             emailInput.value = details.email;
                             numberInput.value = details.number;
-                            axios.delete(`https://crudcrud.com/api/261353c468c341578e09e676ca8bcf27/CrudeCrude1/${details._id}`)
+                            axios.delete(`https://crudcrud.com/api/9205e10661b04a39a0f07cab79dbcd6b/TodoList/${details._id}`)
                                 .then((response) => {
                                     console.log(response)
                                 })

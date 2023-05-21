@@ -97,7 +97,7 @@
                 ItemQuantity: Quantity.value,
             }
 
-            axios.post('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems', obj)
+            axios.post('https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems', obj)
                 .then((response) => {
                     addItems(response.data)
                 })
@@ -106,9 +106,12 @@
 
         // To Add Groceries Item
         function addItems(obj) {
+            console.log(obj)
             const li = document.createElement('li');
-            li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
+            li.id = obj._id;
+            //li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
             //li.appendChild(document.createTextNode(`<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`));
+            li.innerHTML = `<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`;
 
             li.appendChild(BuyBtnOne(obj));
             li.appendChild(BuyBtnTwo(obj));
@@ -117,15 +120,6 @@
             items.appendChild(li);
         }
 
-
-        // function updateQuantity(obj) {
-        //     const li = obj._id;
-
-        //     // if (li) {
-        //     //     li.textContent = `${obj.ItemName} - ${obj.Itemdescription} - ${obj.ItemPrice} - ${obj.ItemQuantity}`;
-        //     // }
-        //     addItems(obj)
-        // }
 
 
         // Buy 1 Button
@@ -144,11 +138,13 @@
                 const listItem = btn1.parentNode;
 
                 if (obj.ItemQuantity > 0) {
-                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
+                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
                         .then((response) => {
                             obj.ItemQuantity = obj.ItemQuantity - 1;
-                            items.removeChild(listItem);
-                            addItems(obj)
+                            const qtyEl = listItem.querySelector(`.qty`)
+                            qtyEl.innerHTML = obj.ItemQuantity;
+                            console.log(qtyEl)
+                            
                         })
                 }
             };
@@ -171,11 +167,14 @@
                 const id2 = obj._id;
                 const listItem = btn2.parentNode;
                 if (obj.ItemQuantity > 0) {
-                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
+                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
                         .then((response) => {
                             obj.ItemQuantity = obj.ItemQuantity - 2;
-                            items.removeChild(listItem);
-                            addItems(obj)
+                            const qtyE2 = listItem.querySelector('.qty');
+                            qtyE2.innerHTML = obj.ItemQuantity;
+                        })
+                        .catch((error) => {
+                            console.log('something went wrong', error)
                         })
                 }
             }
@@ -199,11 +198,11 @@
                 const listItem = btn3.parentNode;
                 if (obj.ItemQuantity > 0) {
                     console.log(obj)
-                    axios.put(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
+                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
                         .then((response) => {
                             obj.ItemQuantity = obj.ItemQuantity - 3;
-                            items.removeChild(listItem);
-                            addItems(obj)
+                            const qtyE3 = listItem.querySelector('.qty');
+                            qtyE3.innerHTML = obj.ItemQuantity;
                         })
 
                 }
@@ -224,7 +223,7 @@
             const id = obj._id;
             deleteBtn.onclick = () => {
                 const ListItem = deleteBtn.parentNode;
-                axios.delete(`https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems/${id}`)
+                axios.delete(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id}`)
                     .then((response) => {
                         items.removeChild(ListItem);
                     })
@@ -238,7 +237,7 @@
         window.addEventListener(('load'), BrowserRefresh);
 
         function BrowserRefresh() {
-            axios.get('https://crudcrud.com/api/175ca818106c4979abc4ecff30ccd30a/GroceriesItems')
+            axios.get('https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems')
                 .then((response) => {
                     for (var i = 0; i < response.data.length; i++) {
                         const data = response.data[i];

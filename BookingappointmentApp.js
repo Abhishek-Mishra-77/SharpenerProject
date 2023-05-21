@@ -23,7 +23,7 @@ myForm.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
     event.preventDefault();
-    
+
     // Delete button
     const deleteBtn = document.createElement('input');
     deleteBtn.type = 'button';
@@ -66,7 +66,7 @@ function onSubmit(event) {
         userList.append(li);
 
         // setTimeout(() => li.remove(), 10000)
-         //  delete button
+        //  delete button
         deleteBtn.onclick = () => {
             localStorage.removeItem(StorageData.email);
             userList.removeChild(li);
@@ -80,10 +80,10 @@ function onSubmit(event) {
             localStorage.removeItem(StorageData.email);
             userList.removeChild(li);
 
-            
+
         }
 
-       
+
 
     }
 
