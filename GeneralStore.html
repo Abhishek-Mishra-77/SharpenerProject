@@ -87,7 +87,7 @@
         details.addEventListener(('submit'), myFormAlldetails);
 
         // Main creation 
-        function myFormAlldetails(event) {
+        async function myFormAlldetails(event) {
             event.preventDefault();
 
             const obj = {
@@ -97,16 +97,18 @@
                 ItemQuantity: Quantity.value,
             }
 
-            axios.post('https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems', obj)
-                .then((response) => {
-                    addItems(response.data)
-                })
+            try {
+                const response = await axios.post('https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems', obj)
+                addItems(response.data)
+            }
+            catch (error) {
+                console.log(error);
+            }
 
         }
 
         // To Add Groceries Item
         function addItems(obj) {
-            console.log(obj)
             const li = document.createElement('li');
             li.id = obj._id;
             //li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
@@ -133,21 +135,27 @@
             btn1.style.marginTop = '15px'
             btn1.value = 'BUY 1'
 
-            btn1.onclick = () => {
+            btn1.onclick = async () => {
                 const id1 = obj._id;
                 const listItem = btn1.parentNode;
 
-                if (obj.ItemQuantity > 0) {
-                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
-                        .then((response) => {
-                            obj.ItemQuantity = obj.ItemQuantity - 1;
-                            const qtyEl = listItem.querySelector(`.qty`)
-                            qtyEl.innerHTML = obj.ItemQuantity;
-                            console.log(qtyEl)
-                            
-                        })
+                try {
+                    if (obj.ItemQuantity > 0) {
+                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
+                        obj.ItemQuantity = obj.ItemQuantity - 1;
+                        const qtyEl = listItem.querySelector(`.qty`)
+                        qtyEl.innerHTML = obj.ItemQuantity;
+                        console.log(qtyEl)
+                    }
+                    else {
+                        alert('Items out of stock!');
+                    }
                 }
-            };
+                catch (error) {
+                    console.log(error);
+                }
+            }
+
             return btn1;
         }
 
@@ -163,20 +171,24 @@
             btn2.style.marginTop = '15px'
             btn2.value = 'BUY 2'
 
-            btn2.onclick = () => {
-                const id2 = obj._id;
-                const listItem = btn2.parentNode;
-                if (obj.ItemQuantity > 0) {
-                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
-                        .then((response) => {
-                            obj.ItemQuantity = obj.ItemQuantity - 2;
-                            const qtyE2 = listItem.querySelector('.qty');
-                            qtyE2.innerHTML = obj.ItemQuantity;
-                        })
-                        .catch((error) => {
-                            console.log('something went wrong', error)
-                        })
+            btn2.onclick = async () => {
+                try {
+                    const id2 = obj._id;
+                    const listItem = btn2.parentNode;
+                    if (obj.ItemQuantity > 0) {
+                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
+                        obj.ItemQuantity = obj.ItemQuantity - 2;
+                        const qtyE2 = listItem.querySelector('.qty');
+                        qtyE2.innerHTML = obj.ItemQuantity;
+                    }
+                    else {
+                        alert('Items out of stock')
+                    }
                 }
+                catch (error) {
+                    console.log(error);
+                }
+
             }
             return btn2;
         }
@@ -193,18 +205,23 @@
             btn3.style.marginTop = '15px'
             btn3.value = 'BUY 3'
 
-            btn3.onclick = () => {
+            btn3.onclick = async () => {
                 const id3 = obj._id;
                 const listItem = btn3.parentNode;
-                if (obj.ItemQuantity > 0) {
-                    console.log(obj)
-                    axios.put(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
-                        .then((response) => {
-                            obj.ItemQuantity = obj.ItemQuantity - 3;
-                            const qtyE3 = listItem.querySelector('.qty');
-                            qtyE3.innerHTML = obj.ItemQuantity;
-                        })
+                try {
+                    if (obj.ItemQuantity > 0) {
 
+                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
+                        obj.ItemQuantity = obj.ItemQuantity - 3;
+                        const qtyE3 = listItem.querySelector('.qty');
+                        qtyE3.innerHTML = obj.ItemQuantity;
+                    }
+                    else {
+                        alert('Items out of stock')
+                    }
+                }
+                catch (error) {
+                    console.log(error)
                 }
 
             }
@@ -221,12 +238,16 @@
             deleteBtn.style.color = 'black'
             deleteBtn.style.marginLeft = '15px'
             const id = obj._id;
-            deleteBtn.onclick = () => {
-                const ListItem = deleteBtn.parentNode;
-                axios.delete(`https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems/${id}`)
-                    .then((response) => {
-                        items.removeChild(ListItem);
-                    })
+
+            deleteBtn.onclick = async () => {
+                try {
+                    const ListItem = deleteBtn.parentNode;
+                    const response = await axios.delete(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id}`)
+                    items.removeChild(ListItem);
+                }
+                catch (error) {
+                    console.log(error);
+                }
 
             }
             return deleteBtn;
@@ -236,14 +257,17 @@
 
         window.addEventListener(('load'), BrowserRefresh);
 
-        function BrowserRefresh() {
-            axios.get('https://crudcrud.com/api/29f139a87e7445dfabb5a5dd635a66d9/GroceriesItems')
-                .then((response) => {
-                    for (var i = 0; i < response.data.length; i++) {
-                        const data = response.data[i];
-                        addItems(data)
-                    }
-                })
+        async function BrowserRefresh() {
+            try {
+                const response = await axios.get('https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems')
+                for (var i = 0; i < response.data.length; i++) {
+                    const data = response.data[i];
+                    addItems(data)
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
 
 
