@@ -10,10 +10,6 @@ btn.addEventListener('click', ExpenseTracker);
 
 function ExpenseTracker(event) {
     event.preventDefault();
-
-
-    //Delete Expenses
-
     const deleteBtn = document.createElement('input');
     deleteBtn.type = 'button';
     deleteBtn.value = 'Delete Expenses';
@@ -81,9 +77,9 @@ function ExpenseTracker(event) {
 
 window.addEventListener('load', (event) => {
 
-      const data = Object.keys(localStorage);
+    const data = Object.keys(localStorage);
 
-      data.forEach( (key) => {
+    data.forEach((key) => {
         const li = document.createElement('li');
         const details = JSON.parse(localStorage.getItem(key));
 
@@ -113,6 +109,6 @@ window.addEventListener('load', (event) => {
 
         userList.appendChild(li);
 
-      });
+    });
 
 });

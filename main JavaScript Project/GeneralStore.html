@@ -98,7 +98,7 @@
             }
 
             try {
-                const response = await axios.post('https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems', obj)
+                const response = await axios.post('https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems', obj)
                 addItems(response.data)
             }
             catch (error) {
@@ -110,7 +110,8 @@
         // To Add Groceries Item
         function addItems(obj) {
             const li = document.createElement('li');
-            li.id = obj._id;
+            // li.id = obj._id;
+            // console.log(li.id);
             //li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
             //li.appendChild(document.createTextNode(`<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`));
             li.innerHTML = `<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`;
@@ -141,11 +142,10 @@
 
                 try {
                     if (obj.ItemQuantity > 0) {
-                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 1 })
+                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity })
                         obj.ItemQuantity = obj.ItemQuantity - 1;
                         const qtyEl = listItem.querySelector(`.qty`)
                         qtyEl.innerHTML = obj.ItemQuantity;
-                        console.log(qtyEl)
                     }
                     else {
                         alert('Items out of stock!');
@@ -176,7 +176,7 @@
                     const id2 = obj._id;
                     const listItem = btn2.parentNode;
                     if (obj.ItemQuantity > 0) {
-                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
+                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
                         obj.ItemQuantity = obj.ItemQuantity - 2;
                         const qtyE2 = listItem.querySelector('.qty');
                         qtyE2.innerHTML = obj.ItemQuantity;
@@ -211,7 +211,7 @@
                 try {
                     if (obj.ItemQuantity > 0) {
 
-                        const response = await axios.put(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
+                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
                         obj.ItemQuantity = obj.ItemQuantity - 3;
                         const qtyE3 = listItem.querySelector('.qty');
                         qtyE3.innerHTML = obj.ItemQuantity;
@@ -242,7 +242,7 @@
             deleteBtn.onclick = async () => {
                 try {
                     const ListItem = deleteBtn.parentNode;
-                    const response = await axios.delete(`https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems/${id}`)
+                    const response = await axios.delete(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id}`)
                     items.removeChild(ListItem);
                 }
                 catch (error) {
@@ -259,7 +259,7 @@
 
         async function BrowserRefresh() {
             try {
-                const response = await axios.get('https://crudcrud.com/api/6e225e30f15b44b99cd528d631d0c93d/GroceriesItems')
+                const response = await axios.get('https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems')
                 for (var i = 0; i < response.data.length; i++) {
                     const data = response.data[i];
                     addItems(data)

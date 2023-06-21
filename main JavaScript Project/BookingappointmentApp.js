@@ -80,7 +80,6 @@ function onSubmit(event) {
             localStorage.removeItem(StorageData.email);
             userList.removeChild(li);
 
-
         }
 
 

@@ -1,5 +1,7 @@
-console.log(printName());
 
+
+console.log(a);
+console.log(a);
 console.log(a);
 
 
@@ -13,3 +15,4 @@ var printName = function (name) {
 console.log(name)
 
 }
+console.log(printName());
