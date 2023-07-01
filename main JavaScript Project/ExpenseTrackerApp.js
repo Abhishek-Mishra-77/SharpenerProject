@@ -56,7 +56,7 @@ const addItems = (obj) => {
 const deleteButton = (li, obj) => {
     const deleteBtn = document.createElement('input');
     deleteBtn.type = 'button';
-    deleteBtn.value = 'Delete';
+    deleteBtn.value = '  Delete  ';
     deleteBtn.onclick = () => {
         localStorage.removeItem(obj.DescriptionName);
         userList.removeChild(li);
@@ -73,7 +73,7 @@ const editButton = (li, obj) => {
     console.log(obj)
     const editBtn = document.createElement('input');
     editBtn.type = 'button';
-    editBtn.value = 'Delete';
+    editBtn.value = '  Edit  ';
     editBtn.onclick = () => {
         const data = localStorage.removeItem(obj.email);
         userList.removeChild(li);
