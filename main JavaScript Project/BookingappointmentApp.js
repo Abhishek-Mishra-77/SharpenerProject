@@ -6,102 +6,109 @@ const numberInput = document.querySelector('#number');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
 
-// btn.addEventListener('click', myFunction); 
-
-// function myFunction(e) {
-//     e.preventDefault();
-//     document.querySelector('#my-form').style.background = '#ccc';
-//     document.querySelector('body').classList.add('bg-dark');
-//     document.querySelector('#item').lastElementChild.textContent = 'Slow down';
-//     document.querySelector('#item').style.background = 'green'
-//     document.querySelector('#item').style.color = 'black';
-// }
 
 
 myForm.addEventListener('submit', onSubmit);
 
-
+// Storare data into localStrorage take all input values
 function onSubmit(event) {
     event.preventDefault();
-
-    // Delete button
-    const deleteBtn = document.createElement('input');
-    deleteBtn.type = 'button';
-    deleteBtn.value = 'Delete';
-
-    // Edit button
-    const editBtn = document.createElement('input');
-    editBtn.type = 'button';
-    editBtn.value = 'Edit'
-
 
     const name = nameInput.value;
     const email = emailInput.value;
     const number = numberInput.value;
-    // localStorage.setItem('Name', name);
-    // localStorage.setItem('Email' ,email);
-    // localStorage.setItem('number' , number);
 
-    const StorageData = {
+    const StorageData =
+    {
         name,
         email,
         number
-    };
+    }
+
+    
 
     localStorage.setItem(StorageData.email, JSON.stringify(StorageData));
-
-
-    if (nameInput.value === '' || emailInput.value === '' || numberInput.value === '') {
-        msg.style.background = 'red';
-        msg.innerHTML = 'Please feel all the fields';
-        setTimeout(() => msg.remove(), 5000);
-    }
-    else {
-
-        const li = document.createElement('li');
-
-        li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value} - ${numberInput.value} - `));
-        li.appendChild(deleteBtn);
-        li.appendChild(editBtn);
-        userList.append(li);
-
-        // setTimeout(() => li.remove(), 10000)
-        //  delete button
-        deleteBtn.onclick = () => {
-            localStorage.removeItem(StorageData.email);
-            userList.removeChild(li);
-        }
-
-        // Edit button 
-        editBtn.onclick = () => {
-            nameInput.value = StorageData.name;
-            emailInput.value = StorageData.email;
-            numberInput.value = StorageData.number;
-            localStorage.removeItem(StorageData.email);
-            userList.removeChild(li);
-
-        }
-
-
-
-    }
-
-
+    addItem(StorageData)
 }
 
 
-// Object in localStorage
-
-// let myobj = {
-//     name : "Chintu",
-//     age : 21
-// };
-
-// let myobj_serialized = JSON.stringify(myobj);
-
-// localStorage.setItem("myObj" , myobj_serialized);
 
 
-// let myobj_deserialized = JSON.parse(localStorage.getItem("myObj"));
+// Add Items here 
+var addItem = (obj) => {
+    console.log(obj.name)
+    if (obj.name.value === '' || obj.email.value === '' || obj.number.value === '') {
+        msg.innerHTML = 'Please feel all the fields';
+        msg.style.background = 'red'
+        msg.style.borderRadius = '12px'
+        msg.style.textAlign = 'center'
+        setTimeout(() => msg.remove(), 3000);
+    }
+    else {
+        const li = document.createElement('li');
+        li.style.backgroundColor = " #317773";
+        li.appendChild(document.createTextNode(`${obj.name} - ${obj.email} - ${obj.number} - `));
+        li.appendChild(deleteBtn(li, obj))
+        li.appendChild(editButton(li, obj))
+        userList.append(li);
 
-// console.log(myobj_deserialized);
+        nameInput.value = '';
+        emailInput.value = '';
+        numberInput.value = '';
+    }
+}
+
+
+// Delele button
+
+const deleteBtn = (li, obj) => {
+    let deleteBtn = document.createElement('input');
+    deleteBtn.type = 'button';
+    deleteBtn.value = 'Delete';
+    deleteBtn.style.marginLeft = '3px'
+    deleteBtn.style.width = '45px'
+    deleteBtn.style.height = '20px'
+    deleteBtn.style.textAlign = 'center'
+    deleteBtn.onclick = () => {
+        localStorage.removeItem(obj.email);
+        userList.removeChild(li);
+    }
+    return deleteBtn;
+}
+
+
+
+// Edit button
+const editButton = (li, obj) => {
+    let EditBtn = document.createElement('input');
+    EditBtn.type = 'button';
+    EditBtn.value = 'Edit';
+    EditBtn.style.marginLeft = '3px'
+    EditBtn.style.width = '45px'
+    EditBtn.style.height = '20px'
+    EditBtn.style.textAlign = 'center'
+    EditBtn.style.marginLeft = '10px'
+
+    EditBtn.onclick = () => {
+
+        const data = localStorage.removeItem(obj.email);
+        userList.removeChild(li);
+        nameInput.value = obj.name;
+        emailInput.value = obj.email;
+        numberInput.value = obj.number;
+    }
+    return EditBtn
+}
+
+
+
+///DOMContentLoaded for when any user refresh the page all the data get back
+
+document.addEventListener(('DOMContentLoaded'), (event) => {
+    const data = Object.keys(localStorage);
+
+    data.forEach((key) => {
+        const details = JSON.parse(localStorage.getItem(key));
+        addItem(details);
+    })
+}) 
