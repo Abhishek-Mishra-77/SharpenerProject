@@ -10,6 +10,37 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <style>
+        .navBar {
+            width: 100%;
+            background-color: #28a745;
+            height: 77px;
+            font-size: 35px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+            border-radius: 10px;
+        }
+
+        body {
+            background-color: #00539C;
+        }
+
+        .navBar div {
+            padding: 7px 50px 50px 10px;
+            margin-left: 50px;
+        }
+
+        @media screen and (max-width:370px) {
+            .navBar {
+                font-size: 22px;
+            }
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+
         body {
             padding: 0;
         }
@@ -23,53 +54,74 @@
             float: right;
         }
 
-        #main-header {
-            height: 177px;
-            background-color: green;
-            color: white;
-            font-size: 40px;
+        #main {
+            max-width: 600px;
+            background-color: #2F3C7E;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+            border-radius: 10px;
         }
+
+        @media screen and (max-width:790px) {
+            #main {
+                max-width: 400px;
+            }
+        }
+
+        ul li {
+            list-style: none;
+            font-size: 17px;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width:790px) {
+            #main {
+                max-width: fit-content;
+            }
+        }
+
 
         #filter {
             width: 77%;
             margin-top: 10%;
         }
+
+        #addForm input {
+
+            background: cadetblue;
+            font-size: 20px;
+            align-items: center
+        }
     </style>
 </head>
 </head>
 
-<header id="main-header" class="bg-success text-white p-4 mb-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 id="header-title">Groceries Items</h1>
-            </div>
-        </div>
-    </div>
-</header>
 
+<!-- NavBar  -->
+
+<nav class="navBar">
+    <div>Groceries Items</div>
+</nav>
+
+
+<!-- Main container Where Items are present -->
 
 <div class="container">
     <div id="main" class="card card-body">
-        <h2 class="title">Add Items</h2>
+        <h2 class="title text-light">Add Items</h2>
         <form id="addForm" class="form-inline mb-3">
-            <input type="text" class="form-control mr-2" id="item" placeholder="ItemName">
-            <input type="text" class="form-control " id="description" placeholder="Description">
-            <input type="text" class="form-control mr-2" id="Price" placeholder="Price">
-            <input type="text" class="form-control " id="Quantity" placeholder="Quantity">
-            <input type="submit" class="btn btn-dark" value="Submit">
+            <input type="text" class="form-control mr-2 my-2" id="item" placeholder="ItemName">
+            <input type="text" class="form-control my-2" id="description" placeholder="Description">
+            <input type="text" class="form-control mr-2 my-2" id="Price" placeholder="Price">
+            <input type="text" class="form-control my-2" id="Quantity" placeholder="Quantity">
+            <input type="submit" class="btn btn-dark my-3">
         </form>
-        <h2 class="title">Items</h2>
+        <h2 class="title text-light">Items</h2>
+
+
+        <!-- Unoredered List for addind list -->
 
         <ul id="items" class="list-group">
-            <!-- <li class="list-group-item">Item 1 <button id="btn1">Buy1</button>  <button id="btn2">Buy2</button> <button id="btn3">Buy3</button>
-             </li>
-            <li class="list-group-item">Item 2 <button id="btn1">Buy1</button>  <button id="btn2">Buy2</button> <button id="btn3">Buy3</button>
-            </li2>
-            <li class="list-group-item">Item 3 <button id="btn1">Buy1</button>  <button id="btn2">Buy2</button> <button id="btn3">Buy3</button>
-            </li>2
-            <li class="list-group-item">Item 4 <button id="btn1">Buy1</button>  <button id="btn2">Buy2</button> <button id="btn3">Buy3</button>
-            </li> -->
         </ul>
     </div>
 </div>
@@ -98,7 +150,7 @@
             }
 
             try {
-                const response = await axios.post('https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems', obj)
+                const response = await axios.post('https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems', obj)
                 addItems(response.data)
             }
             catch (error) {
@@ -114,7 +166,7 @@
             // console.log(li.id);
             //li.appendChild(document.createTextNode(`${obj.ItemName} ${obj.Itemdescription} ${obj.ItemPrice} ${obj.ItemQuantity}`))
             //li.appendChild(document.createTextNode(`<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`));
-            li.innerHTML = `<span>${obj.ItemName}</span> <span>${obj.Itemdescription}</span> <span>${obj.ItemPrice}</span> <span class="qty">${obj.ItemQuantity}</span>`;
+            li.innerHTML = `<span>${obj.ItemName}</span> -<span>${obj.Itemdescription}</span>-<span>${obj.ItemPrice}Rs</span> -<span class="qty">${obj.ItemQuantity}</span>qty`;
 
             li.appendChild(BuyBtnOne(obj));
             li.appendChild(BuyBtnTwo(obj));
@@ -132,7 +184,7 @@
             btn1.type = 'button'
             btn1.style.background = 'green'
             btn1.style.color = 'black'
-            btn1.style.marginLeft = '20px'
+            btn1.style.marginLeft = '15px'
             btn1.style.marginTop = '15px'
             btn1.value = 'BUY 1'
 
@@ -142,7 +194,7 @@
 
                 try {
                     if (obj.ItemQuantity > 0) {
-                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity })
+                        const response = await axios.put(`https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems/${id1}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity })
                         obj.ItemQuantity = obj.ItemQuantity - 1;
                         const qtyEl = listItem.querySelector(`.qty`)
                         qtyEl.innerHTML = obj.ItemQuantity;
@@ -167,7 +219,7 @@
             btn2.type = 'button'
             btn2.style.background = 'green'
             btn2.style.color = 'black'
-            btn2.style.marginLeft = '20px'
+            btn2.style.marginLeft = '15px'
             btn2.style.marginTop = '15px'
             btn2.value = 'BUY 2'
 
@@ -176,7 +228,7 @@
                     const id2 = obj._id;
                     const listItem = btn2.parentNode;
                     if (obj.ItemQuantity > 0) {
-                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
+                        const response = await axios.put(`https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems/${id2}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 2 })
                         obj.ItemQuantity = obj.ItemQuantity - 2;
                         const qtyE2 = listItem.querySelector('.qty');
                         qtyE2.innerHTML = obj.ItemQuantity;
@@ -201,7 +253,7 @@
             btn3.type = 'button'
             btn3.style.background = 'green'
             btn3.style.color = 'black'
-            btn3.style.marginLeft = '20px'
+            btn3.style.marginLeft = '15px'
             btn3.style.marginTop = '15px'
             btn3.value = 'BUY 3'
 
@@ -211,7 +263,7 @@
                 try {
                     if (obj.ItemQuantity > 0) {
 
-                        const response = await axios.put(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
+                        const response = await axios.put(`https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems/${id3}`, { ItemName: obj.ItemName, Itemdescription: obj.Itemdescription, ItemPrice: obj.ItemPrice, ItemQuantity: obj.ItemQuantity - 3 })
                         obj.ItemQuantity = obj.ItemQuantity - 3;
                         const qtyE3 = listItem.querySelector('.qty');
                         qtyE3.innerHTML = obj.ItemQuantity;
@@ -242,7 +294,7 @@
             deleteBtn.onclick = async () => {
                 try {
                     const ListItem = deleteBtn.parentNode;
-                    const response = await axios.delete(`https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems/${id}`)
+                    const response = await axios.delete(`https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems/${id}`)
                     items.removeChild(ListItem);
                 }
                 catch (error) {
@@ -259,7 +311,7 @@
 
         async function BrowserRefresh() {
             try {
-                const response = await axios.get('https://crudcrud.com/api/6c1caca856644ac490a92f6060643a79/GroceriesItems')
+                const response = await axios.get('https://crudcrud.com/api/c98a732fc8ee456988336e5ab6437008/GroceriesItems')
                 for (var i = 0; i < response.data.length; i++) {
                     const data = response.data[i];
                     addItems(data)
